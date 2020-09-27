@@ -20,13 +20,14 @@
 #include "nbtool_config.h"
 #endif
 #include "parser.h"
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: tokenizer.l,v 1.6 2012/03/20 20:34:58 matt Exp $");
 #include <stdlib.h>
 #include <errno.h>
 #include <stdint.h>
 #include <limits.h>
 
-extern int mimic_gnu;
+#define mimic_gnu 1
 extern int32_t yylval;
 extern int yylex(void);
 extern int yywrap(void);

@@ -4,24 +4,32 @@
 
 # -DEXTENDED 
 # 	if you want the paste & spaste macros.
-.include <bsd.own.mk>
 
 PROG=		m4
-CPPFLAGS+=	-DEXTENDED -I${.CURDIR}/lib
-SRCS=	parser.y tokenizer.l eval.c expr.c look.c main.c misc.c gnum4.c trace.c
-.PATH: ${.CURDIR}/lib
-SRCS+=	ohash_create_entry.c ohash_delete.c ohash_do.c ohash_entries.c \
-	ohash_enum.c ohash_init.c ohash_int.h ohash_interval.c \
-	ohash_lookup_interval.c ohash_lookup_memory.c ohash_qlookup.c \
-	ohash_qlookupi.c
-YHEADER=1
-.if (${HOSTPROG:U} == "")
-DPADD+=		${LIBUTIL} ${LIBL}
-LDADD+=		-lutil -ll
-.endif
+CPPFLAGS=	-DEXTENDED -I$(CURDIR)/lib -lfl -ly -lbsd -isystem /usr/include/bsd -DLIBBSD_OVERLAY -D'__dead=__attribute__((__noreturn__))' -D'__UNCONST(a)=(void*)(intptr_t)(a)'
+SRCS=	parser.c tokenizer.c eval.c expr.c look.c main.c misc.c gnum4.c trace.c \
+	lib/ohash_create_entry.c lib/ohash_delete.c lib/ohash_do.c lib/ohash_entries.c \
+	lib/ohash_enum.c lib/ohash_init.c lib/ohash_int.h lib/ohash_interval.c \
+	lib/ohash_lookup_interval.c lib/ohash_lookup_memory.c lib/ohash_qlookup.c \
+	lib/ohash_qlookupi.c
 
-tokenizer.o: parser.h
+INSTALL=	install -c
+PREFIX=		/usr/local
+MANDIR=		$(PREFIX)/share/man
+YACC?=		yacc
+YFLAGS?=	-y --defines=parser.h #-H parser.h
 
-CLEANFILES+=parser.c parser.h tokenizer.o
+all: tokenizer.c
+	$(CC) $(CPPFLAGS) $(SRCS) -o $(PROG)
 
-.include <bsd.prog.mk>
+tokenizer.c:
+	$(YACC) parser.y $(YFLAGS) -o parser.c
+	lex -o tokenizer.c tokenizer.l
+
+clean:
+	rm -f *.o $(PROG) parser.c parser.h tokenizer.c
+
+install:
+	$(INSTALL) $(PROG) $(PREFIX)/bin
+	$(INSTALL) -m 0644 $(PROG).1 
+

@@ -21,8 +21,10 @@
 #endif
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: parser.y,v 1.3 2015/01/04 18:31:09 joerg Exp $");
+#include <stdlib.h>
 #include <stdint.h>
 #define YYSTYPE	int32_t
+extern int32_t yyval;
 extern int32_t end_result;
 extern int yylex(void);
 extern int yyerror(const char *);
