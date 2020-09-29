@@ -6,7 +6,7 @@
 # 	if you want the paste & spaste macros.
 
 PROG=		m4
-CPPFLAGS=	-DEXTENDED -I$(CURDIR)/lib -lfl -ly -lbsd -isystem /usr/include/bsd -DLIBBSD_OVERLAY -D'__dead=__attribute__((__noreturn__))' -D'__UNCONST(a)=(void*)(intptr_t)(a)'
+CPPFLAGS=	-DEXTENDED -I$(CURDIR)/lib -lfl -lbsd -isystem /usr/include/bsd -DLIBBSD_OVERLAY -D'__dead=__attribute__((__noreturn__))' -D'__UNCONST(a)=(void*)(intptr_t)(a)'
 SRCS=	parser.c tokenizer.c eval.c expr.c look.c main.c misc.c gnum4.c trace.c \
 	lib/ohash_create_entry.c lib/ohash_delete.c lib/ohash_do.c lib/ohash_entries.c \
 	lib/ohash_enum.c lib/ohash_init.c lib/ohash_int.h lib/ohash_interval.c \
