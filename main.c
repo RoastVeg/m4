@@ -127,6 +127,7 @@ struct keyblk keywrds[] = {	/* m4 keywords to be installed */
 	{ "esyscmd",	  ESYSCMDTYPE},
 	{ "__file__",	  FILENAMETYPE | NOARGS},
 	{ "__line__",	  LINETYPE | NOARGS},
+	{ "__gnu__",      SELFTYPE | NOARGS},
 #endif
 	{ "popdef",       POPDTYPE },
 	{ "pushdef",      PUSDTYPE },
@@ -147,6 +148,7 @@ struct keyblk keywrds[] = {	/* m4 keywords to be installed */
 
 #if defined(unix) || defined(__unix__) 
 	{ "unix",         SELFTYPE | NOARGS },
+	{ "__unix__",     SELFTYPE | NOARGS },
 #else
 #ifdef vms
 	{ "vms",          SELFTYPE | NOARGS },
@@ -179,8 +181,8 @@ static void
 usage(FILE *f)
 {
 	fprintf(f, "Usage: %s [-EGgiPQsv] [-Dname[=value]] [-d flags] "
-	    "[-I dirname] [-o filename] [-L limit]\n"
-	    "\t[-t macro] [-Uname] [file ...]\n", getprogname());
+	    "[-I dirname] [-o filename] [-L limit] "
+	    "[-t macro] [-Uname] [file ...]\n", getprogname());
 }
 
 __dead static void
@@ -310,7 +312,7 @@ main(int argc, char *argv[])
 			macro_popdef(optarg);
 			break;
 		case 'v':
-			fprintf(stderr, "%s version %d\n", getprogname(),
+			fprintf(stderr, "NetBSD %s %d\n", getprogname(),
 			    VERSION);
 			return EXIT_SUCCESS;
 		case OPT_HELP:

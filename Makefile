@@ -22,7 +22,7 @@ all: tokenizer.c
 	$(CC) $(CPPFLAGS) $(SRCS) -o $(PROG)
 
 tokenizer.c:
-	$(YACC) parser.y $(YFLAGS) -o parser.c
+	$(YACC) $(YFLAGS) -o parser.c parser.y
 	lex -o tokenizer.c tokenizer.l
 
 clean:
