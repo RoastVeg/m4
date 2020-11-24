@@ -53,7 +53,7 @@ __RCSID("$NetBSD: gnum4.c,v 1.10 2016/01/16 16:59:18 christos Exp $");
 #include "extern.h"
 
 
-int mimic_gnu = 0;
+int mimic_gnu = 1;
 #ifndef SIZE_T_MAX
 #define SIZE_T_MAX (size_t)~0ull
 #endif
