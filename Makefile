@@ -16,7 +16,7 @@ INSTALL=	install -c
 PREFIX=		/usr/local
 MANDIR=		$(PREFIX)/share/man
 YACC?=		yacc
-YFLAGS?=	-y --defines=parser.h #-H parser.h
+YFLAGS?=	-y --defines=parser.h #use "-H parser.h" if using byacc
 
 all: tokenizer.c
 	$(CC) $(CPPFLAGS) $(SRCS) -o $(PROG)
@@ -30,5 +30,5 @@ clean:
 
 install:
 	$(INSTALL) $(PROG) $(PREFIX)/bin
-	$(INSTALL) -m 0644 $(PROG).1 
+	$(INSTALL) -m 0644 $(PROG).1 $(MANDIR)
 
